@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/grey">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/photo"
+            android:textSize="72sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/photo"
+            android:src="@drawable/ic_camera" />
+    </FrameLayout>
+
+
+    <EditText
+        android:id="@+id/et_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:autofillHints="@string/title"
+        android:inputType="text"
+        android:text="@string/title"
+        tools:ignore="LabelFor" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="@string/price"
+            android:inputType="number"
+            android:text="@string/price"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/et_3"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:autofillHints="@string/location"
+            android:drawableEnd="@drawable/ic_location"
+            android:inputType="text"
+            android:text="@string/location"
+            tools:ignore="LabelFor" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
+        android:autofillHints="@string/description"
+        android:inputType="text"
+        android:text="@string/description"
+        tools:ignore="LabelFor" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_5"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginTop="32dp"
+            android:autofillHints="@string/inventory"
+            android:inputType="text"
+            android:text="@string/inventory"
+            tools:ignore="LabelFor" />
+
+        <EditText
+            android:id="@+id/et_6"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="@string/weight"
+            android:inputType="number"
+            android:text="@string/weight"
+            tools:ignore="LabelFor" />
+    </LinearLayout>
+
+</LinearLayout>
