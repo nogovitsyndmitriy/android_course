@@ -1,3 +1,5 @@
+include ':29'
+include ':task_4_2_contacts'
 include ':classwork_22x10'
 include ':15_10_classwork'
 include ':tsak_4'
