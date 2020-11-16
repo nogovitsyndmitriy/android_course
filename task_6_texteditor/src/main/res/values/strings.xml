@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">task_6_TextEditor</string>
+    <string name="addFileBtn">add file</string>
+    <string name="fileManager">File Manager</string>
+    <string name="file">File</string>
+    <string name="fileName">File 1</string>
+    <string name="createFile">Create File</string>
+    <string name="fileNameHint">File name</string>
+    <string name="enterContent">Enter conten here...</string>
+    <string name="createNewFile">CREATE NEW FILE</string>
+    <string name="settings">Settings</string>
+    <string name="editFile">Edit File</string>
+    <string name="edit">Edit</string>
+    <string name="back">back</string>
+    <string name="app_specific_storage">App-specifc storage</string>
+    <string name="sharedStorage">Shared storage</string>
+    <string name="chooseSaveVariant">Choose storage</string>
+    <string name="enterFilename">Enter file name</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+</resources>
