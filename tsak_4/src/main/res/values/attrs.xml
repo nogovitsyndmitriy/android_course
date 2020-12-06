@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomSliceView">
+        <attr name="color" format="color" />
+        <attr name="startAngle" format="float" />
+        <attr name="sweepAngle" format="float" />
+        <attr name="centerX" format="float" />
+        <attr name="centerY" format="float" />
+        <attr name="radius" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomCircleView">
+        <attr name="circleColor" format="color" />
+    </declare-styleable>
+</resources>
