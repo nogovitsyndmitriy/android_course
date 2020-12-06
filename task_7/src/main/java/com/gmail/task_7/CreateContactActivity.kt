@@ -22,7 +22,7 @@ class CreateContactActivity : AppCompatActivity() {
             finish()
         }
         var contactInfoType: String = "Phone Number"
-        findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, checkedId ->
+        findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
             contactInfoType = radio.text.toString()
             setTypeOfContact(contactInfoType)
