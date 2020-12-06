@@ -1,12 +1,12 @@
 package com.gmail.task_7
+
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.gmail.task_7.entity.Contact
-import kotlinx.android.synthetic.main.activity_remove.editContactBtn
-import kotlinx.android.synthetic.main.activity_remove.infoText
-import kotlinx.android.synthetic.main.activity_remove.nameText
-import kotlinx.android.synthetic.main.activity_remove.removeContactBtn
 
 class EditContactActivity : AppCompatActivity() {
 
@@ -14,19 +14,19 @@ class EditContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_remove)
         val editedContact = intent.getSerializableExtra("CONTACT") as Contact
-        nameText.setText(editedContact.name)
+        findViewById<EditText>(R.id.nameText).setText(editedContact.name)
         if (editedContact.isPhone) {
-            infoText.setText(editedContact.phone)
+            findViewById<EditText>(R.id.infoText).setText(editedContact.phone)
         } else {
-            infoText.setText(editedContact.email)
+            findViewById<EditText>(R.id.infoText).setText(editedContact.email)
         }
         val editResult = Intent(this, MainActivity::class.java)
-        editContactBtn.setOnClickListener {
+        findViewById<ImageButton>(R.id.editContactBtn).setOnClickListener {
             editResult.putExtra("EDITED_CONTACT", editContact(editedContact))
             setResult(2, editResult)
             finish()
         }
-        removeContactBtn.setOnClickListener {
+        findViewById<Button>(R.id.removeContactBtn).setOnClickListener {
             editResult.putExtra("DELETED_ID", editedContact.id)
             setResult(0, editResult)
             finish()
@@ -34,11 +34,11 @@ class EditContactActivity : AppCompatActivity() {
     }
 
     private fun editContact(editedContact: Contact): Contact {
-        editedContact.name = nameText.text.toString()
+        editedContact.name = findViewById<EditText>(R.id.nameText).text.toString()
         if (editedContact.isPhone) {
-            editedContact.phone = infoText.text.toString()
+            editedContact.phone = findViewById<EditText>(R.id.infoText).text.toString()
         } else {
-            editedContact.email = infoText.text.toString()
+            editedContact.email = findViewById<EditText>(R.id.infoText).text.toString()
         }
         return editedContact
     }

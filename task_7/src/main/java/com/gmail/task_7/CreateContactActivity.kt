@@ -3,34 +3,38 @@ package com.gmail.task_7
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_add.*
 import com.gmail.task_7.entity.Contact
 
 class CreateContactActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-        var intent = Intent(this, MainActivity::class.java)
-
-        backToContactsBtn.setOnClickListener {
+        val intent = Intent(this, MainActivity::class.java)
+        findViewById<ImageButton>(R.id.backToContactsBtn).setOnClickListener {
             startActivity(intent)
             finish()
         }
         var contactInfoType: String = "Phone Number"
-        radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, checkedId ->
+        findViewById<RadioGroup>(R.id.radioGroup).setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
             contactInfoType = radio.text.toString()
             setTypeOfContact(contactInfoType)
         })
-
-        saveContactBtn.setOnClickListener(View.OnClickListener {
+        findViewById<ImageButton>(R.id.saveContactBtn).setOnClickListener(View.OnClickListener {
             intent.putExtra(
-                "CONTACT", createContact(nameEditText.text.toString(), contactInfo.text.toString(), contactInfoType)
+                "CONTACT",
+                createContact(
+                    findViewById<EditText>(R.id.nameEditText).text.toString(),
+                    findViewById<EditText>(R.id.contactInfo).text.toString(),
+                    contactInfoType
+                )
             )
             setResult(666, intent)
             finish()
@@ -55,12 +59,11 @@ class CreateContactActivity : AppCompatActivity() {
     }
 
     fun setTypeOfContact(text: String) {
-        val editText = contactInfo
+        val editText = findViewById<TextView>(R.id.contactInfo)
         if (text.equals("Email")) {
             editText.hint = "Email"
         } else {
             editText.hint = "Phone number"
         }
-
     }
 }

@@ -1,9 +1,11 @@
 package com.gmail.task_7
+
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -11,14 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gmail.task_7.database.AppDatabase
 import com.gmail.task_7.entity.Contact
-import kotlinx.android.synthetic.main.activity_main.addContactBtn
-import kotlinx.android.synthetic.main.activity_main.noContactsText
-import kotlinx.android.synthetic.main.activity_main.recyclerContactsView
 
 class MainActivity : AppCompatActivity() {
 
-    var contacts = mutableListOf<Contact>()
+    private lateinit var db: AppDatabase
+    private lateinit var recyclerView: RecyclerView
 
     interface ListItemActionListener {
         fun onItemClicked(id: String)
@@ -26,12 +27,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = (applicationContext as App).db
         setContentView(R.layout.activity_main)
-        if (contacts.isNotEmpty()) {
-            noContactsText.isVisible = false
+        if (db.contactDao().getAll().toMutableList().isNotEmpty()) {
+            findViewById<TextView>(R.id.noContactsText).isVisible = false
         }
-        addContactBtn.setOnClickListener {
-            var intent = Intent(this, CreateContactActivity::class.java)
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerContactsView)
+        recyclerView.apply {
+            adapter = ContactAdapter(db.contactDao().getAll().toMutableList(), object : ListItemActionListener {
+                override fun onItemClicked(id: String) {
+                    val contactForEdit = db.contactDao().findById(id)
+                    val intent = Intent(context, EditContactActivity::class.java)
+                    intent.putExtra("CONTACT", contactForEdit)
+                    startActivityForResult(intent, 1)
+                }
+            })
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        }
+        val addButton = findViewById<ImageButton>(R.id.addContactBtn)
+        addButton.setOnClickListener {
+            val intent = Intent(this, CreateContactActivity::class.java)
             startActivityForResult(intent, 555)
         }
     }
@@ -40,32 +55,33 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 555 && resultCode == 666 && data != null) {
-            contacts.add(data.getSerializableExtra("CONTACT") as Contact)
+            db.contactDao().saveAll(data.getSerializableExtra("CONTACT") as Contact)
         } else if (requestCode == 1 && resultCode == 0 && data != null) {
-            contacts.removeAll { contact -> contact.id.contentEquals(data.getStringExtra("DELETED_ID").toString()) }
+            db.contactDao().deleteById(data.getStringExtra("DELETED_ID").toString())
         } else if (requestCode == 1 && resultCode == 2 && data != null) {
             val editedContact = data.getSerializableExtra("EDITED_CONTACT") as Contact
-            contacts.removeAll { contact -> contact.id.contentEquals(editedContact.id) }
-            contacts.add(editedContact)
+            db.contactDao().deleteById(editedContact.id)
+            db.contactDao().saveAll(editedContact)
         }
-        noContactsText.isVisible = contacts.isEmpty()
-        val recyclerView = recyclerContactsView
+        findViewById<TextView>(R.id.noContactsText)?.isVisible = db.contactDao().getAll().toMutableList().isEmpty()
         recyclerView.apply {
-            adapter = ContactAdapter(contacts, object : ListItemActionListener {
+            adapter = ContactAdapter(db.contactDao().getAll().toMutableList(), object : ListItemActionListener {
                 override fun onItemClicked(id: String) {
-                    var contactForEdit = contacts.find { contact -> contact.id.equals(id) }
-                    var intent = Intent(context, EditContactActivity::class.java)
+                    val contactForEdit = db.contactDao().findById(id)
+                    val intent = Intent(context, EditContactActivity::class.java)
                     intent.putExtra("CONTACT", contactForEdit)
                     startActivityForResult(intent, 1)
                 }
             })
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
     }
 
     companion object {
-        class ContactAdapter(private val list: List<Contact>, private val listItemActionListener: ListItemActionListener?) :
-            RecyclerView.Adapter<ContactAdapter.Companion.ContactViewHolder>() {
+        class ContactAdapter(
+            private val list: List<Contact>,
+            private val listItemActionListener: ListItemActionListener?
+        ) :
+            RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 return ContactViewHolder(inflater, parent, listItemActionListener)
@@ -77,37 +93,39 @@ class MainActivity : AppCompatActivity() {
                 holder.bind(contact)
             }
 
-            companion object {
-                class ContactViewHolder(inflater: LayoutInflater, parent: ViewGroup, private var listItemActionListener: ListItemActionListener? = null) : RecyclerView.ViewHolder(
-                    inflater.inflate(
-                        R.layout.item_contact,
-                        parent,
-                        false
-                    )
-                ) {
-                    private var avatarView: ImageView? = null
-                    private var contactNameView: TextView? = null
-                    private var contactInfoView: TextView? = null
+            class ContactViewHolder(
+                inflater: LayoutInflater,
+                parent: ViewGroup,
+                private var listItemActionListener: ListItemActionListener? = null
+            ) : RecyclerView.ViewHolder(
+                inflater.inflate(
+                    R.layout.item_contact,
+                    parent,
+                    false
+                )
+            ) {
+                private var avatarView: ImageView? = null
+                private var contactNameView: TextView? = null
+                private var contactInfoView: TextView? = null
 
-                    init {
-                        avatarView = itemView.findViewById(R.id.avatar)
-                        contactNameView = itemView.findViewById(R.id.contactName)
-                        contactInfoView = itemView.findViewById(R.id.contactInfo)
+                init {
+                    avatarView = itemView.findViewById(R.id.avatar)
+                    contactNameView = itemView.findViewById(R.id.contactName)
+                    contactInfoView = itemView.findViewById(R.id.contactInfo)
+                }
+
+                fun bind(contact: Contact) {
+                    itemView.setOnClickListener {
+                        listItemActionListener?.onItemClicked(contact.id)
                     }
-
-                    fun bind(contact: Contact) {
-                        itemView.setOnClickListener {
-                            listItemActionListener?.onItemClicked(contact.id)
-                        }
-                        if (contact.isPhone) {
-                            avatarView?.setImageResource(R.drawable.ic_contact_phone)
-                            contactNameView?.text = contact.name
-                            contactInfoView?.text = contact.phone
-                        } else {
-                            avatarView?.setImageResource(R.drawable.ic_contact_email)
-                            contactNameView?.text = contact.name
-                            contactInfoView?.text = contact.email
-                        }
+                    if (contact.isPhone) {
+                        avatarView?.setImageResource(R.drawable.ic_contact_phone)
+                        contactNameView?.text = contact.name
+                        contactInfoView?.text = contact.phone
+                    } else {
+                        avatarView?.setImageResource(R.drawable.ic_contact_email)
+                        contactNameView?.text = contact.name
+                        contactInfoView?.text = contact.email
                     }
                 }
             }

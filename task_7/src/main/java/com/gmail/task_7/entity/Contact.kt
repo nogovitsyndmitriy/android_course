@@ -1,13 +1,21 @@
 package com.gmail.task_7.entity
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
+@Entity
 class Contact(
-    var name: String? = "",
+    @ColumnInfo(name = "name")
+    var name: String = "",
+    @ColumnInfo(name = "phone")
     var phone: String? = null,
+    @ColumnInfo(name = "email")
     var email: String? = null,
-    var isPhone: Boolean = true
-) : Serializable {
+    @ColumnInfo(name = "isPhone")
+    var isPhone: Boolean = true,
+    @PrimaryKey
     val id: String = UUID.randomUUID().toString()
-}
+) : Serializable
