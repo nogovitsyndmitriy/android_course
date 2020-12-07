@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         db = (applicationContext as App).db
         setContentView(R.layout.activity_main)
-        if (db.contactDao().getAll().toMutableList().isNotEmpty()) {
-            findViewById<TextView>(R.id.noContactsText).isVisible = false
-        }
+        findViewById<TextView>(R.id.noContactsText).isVisible = db.contactDao().getAll().toMutableList().isNotEmpty()
         recyclerView = findViewById<RecyclerView>(R.id.recyclerContactsView)
         recyclerView.apply {
             adapter = ContactAdapter(db.contactDao().getAll().toMutableList(), object : ListItemActionListener {
@@ -56,9 +54,9 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 555 && resultCode == 666 && data != null) {
             db.contactDao().saveAll(data.getSerializableExtra("CONTACT") as Contact)
-        } else if (requestCode == 1 && resultCode == 0 && data != null) {
+        } else if (requestCode == 1 && resultCode == DELETED && data != null) {
             db.contactDao().deleteById(data.getStringExtra("DELETED_ID").toString())
-        } else if (requestCode == 1 && resultCode == 2 && data != null) {
+        } else if (requestCode == 1 && resultCode == EDITED && data != null) {
             val editedContact = data.getSerializableExtra("EDITED_CONTACT") as Contact
             db.contactDao().deleteById(editedContact.id)
             db.contactDao().saveAll(editedContact)
@@ -76,57 +74,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        class ContactAdapter(
-            private val list: List<Contact>,
-            private val listItemActionListener: ListItemActionListener?
-        ) :
-            RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-                val inflater = LayoutInflater.from(parent.context)
-                return ContactViewHolder(inflater, parent, listItemActionListener)
-            }
+    class ContactAdapter(
+        private val list: List<Contact>,
+        private val listItemActionListener: ListItemActionListener?
+    ) :
+        RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            return ContactViewHolder(inflater, parent, listItemActionListener)
+        }
 
-            override fun getItemCount(): Int = list.size
-            override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-                val contact: Contact = list[position]
-                holder.bind(contact)
-            }
+        override fun getItemCount(): Int = list.size
+        override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
+            val contact: Contact = list[position]
+            holder.bind(contact)
+        }
 
-            class ContactViewHolder(
-                inflater: LayoutInflater,
-                parent: ViewGroup,
-                private var listItemActionListener: ListItemActionListener? = null
-            ) : RecyclerView.ViewHolder(
-                inflater.inflate(
-                    R.layout.item_contact,
-                    parent,
-                    false
-                )
-            ) {
-                private var avatarView: ImageView? = null
-                private var contactNameView: TextView? = null
-                private var contactInfoView: TextView? = null
+        class ContactViewHolder(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            private var listItemActionListener: ListItemActionListener? = null
+        ) : RecyclerView.ViewHolder(
+            inflater.inflate(R.layout.item_contact, parent, false)
+        ) {
+            private var avatarView = itemView.findViewById<ImageView>(R.id.avatar)
+            private var contactNameView = itemView.findViewById<TextView>(R.id.contactName)
+            private var contactInfoView = itemView.findViewById<TextView>(R.id.contactInfo)
 
-                init {
-                    avatarView = itemView.findViewById(R.id.avatar)
-                    contactNameView = itemView.findViewById(R.id.contactName)
-                    contactInfoView = itemView.findViewById(R.id.contactInfo)
+            fun bind(contact: Contact) {
+                itemView.setOnClickListener {
+                    listItemActionListener?.onItemClicked(contact.id)
                 }
-
-                fun bind(contact: Contact) {
-                    itemView.setOnClickListener {
-                        listItemActionListener?.onItemClicked(contact.id)
-                    }
-                    if (contact.isPhone) {
-                        avatarView?.setImageResource(R.drawable.ic_contact_phone)
-                        contactNameView?.text = contact.name
-                        contactInfoView?.text = contact.phone
-                    } else {
-                        avatarView?.setImageResource(R.drawable.ic_contact_email)
-                        contactNameView?.text = contact.name
-                        contactInfoView?.text = contact.email
-                    }
+                if (contact.isPhone) {
+                    avatarView?.setImageResource(R.drawable.ic_contact_phone)
+                    contactNameView?.text = contact.name
+                    contactInfoView?.text = contact.phone
+                } else {
+                    avatarView?.setImageResource(R.drawable.ic_contact_email)
+                    contactNameView?.text = contact.name
+                    contactInfoView?.text = contact.email
                 }
             }
         }

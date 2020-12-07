@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gmail.task_8_async.entity.Contact
 
 class CreateContactActivity : AppCompatActivity() {
+    private val editText = findViewById<TextView>(R.id.contactInfo)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent()
         findViewById<ImageButton>(R.id.backToContactsBtn).setOnClickListener {
-            startActivity(intent)
             finish()
         }
         var contactInfoType: String = "Phone Number"
@@ -41,9 +41,9 @@ class CreateContactActivity : AppCompatActivity() {
         })
     }
 
-    fun createContact(name: String, contactInfo: String, contactInfoType: String): Contact? {
+    private fun createContact(name: String, contactInfo: String, contactInfoType: String): Contact? {
         val newContact = Contact()
-        if (contactInfoType.equals("Email")) {
+        if (contactInfoType == "Email") {
             newContact.let {
                 it.name = name
                 it.email = contactInfo
@@ -58,9 +58,8 @@ class CreateContactActivity : AppCompatActivity() {
         return newContact;
     }
 
-    fun setTypeOfContact(text: String) {
-        val editText = findViewById<TextView>(R.id.contactInfo)
-        if (text.equals("Email")) {
+    private fun setTypeOfContact(text: String) {
+        if (text == "Email") {
             editText.hint = "Email"
         } else {
             editText.hint = "Phone number"
