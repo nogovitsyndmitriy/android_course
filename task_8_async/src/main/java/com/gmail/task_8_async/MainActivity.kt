@@ -3,6 +3,7 @@ package com.gmail.task_8_async
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -15,11 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.task_8_async.database.AppDatabase
 import com.gmail.task_8_async.entity.Contact
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
+    private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
+    private var contactList: MutableList<Contact> = mutableListOf()
+    private val executor = Executors.newFixedThreadPool(10)
+
 
     interface ListItemActionListener {
         fun onItemClicked(id: String)
@@ -29,13 +35,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         db = (applicationContext as App).db
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.noContactsText).isVisible = db.contactDao().getAll().toMutableList().isNotEmpty()
+        contactList = db.contactDao().getAll().toMutableList()
+
+        findViewById<TextView>(R.id.noContactsText).isVisible = contactList.isEmpty()
         recyclerView = findViewById<RecyclerView>(R.id.recyclerContactsView)
         recyclerView.apply {
-            adapter = ContactAdapter(db.contactDao().getAll().toMutableList(), object : ListItemActionListener {
+            adapter = ContactAdapter(contactList, object : ListItemActionListener {
                 override fun onItemClicked(id: String) {
                     val contactForEdit = db.contactDao().findById(id)
-                    val intent = Intent(context, EditContactActivity::class.java)
+                    val intent = Intent(this@MainActivity, EditContactActivity::class.java)
                     intent.putExtra("CONTACT", contactForEdit)
                     startActivityForResult(intent, 1)
                 }
@@ -54,34 +62,36 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 555 && resultCode == 666 && data != null) {
             db.contactDao().saveAll(data.getSerializableExtra("CONTACT") as Contact)
+            contactList = db.contactDao().getAll().toMutableList()
         } else if (requestCode == 1 && resultCode == DELETED && data != null) {
-            db.contactDao().deleteById(data.getStringExtra("DELETED_ID").toString())
+            val id = data.getStringExtra("DELETED_ID").toString()
+            db.contactDao().deleteById(id)
+            contactList = db.contactDao().getAll().toMutableList()
         } else if (requestCode == 1 && resultCode == EDITED && data != null) {
             val editedContact = data.getSerializableExtra("EDITED_CONTACT") as Contact
             db.contactDao().deleteById(editedContact.id)
             db.contactDao().saveAll(editedContact)
+            this.contactList = db.contactDao().getAll().toMutableList()
         }
-        findViewById<TextView>(R.id.noContactsText)?.isVisible = db.contactDao().getAll().toMutableList().isEmpty()
-        recyclerView.apply {
-            adapter = ContactAdapter(db.contactDao().getAll().toMutableList(), object : ListItemActionListener {
-                override fun onItemClicked(id: String) {
-                    val contactForEdit = db.contactDao().findById(id)
-                    val intent = Intent(context, EditContactActivity::class.java)
-                    intent.putExtra("CONTACT", contactForEdit)
-                    startActivityForResult(intent, 1)
-                }
-            })
-        }
+        val newAdapter = this.recyclerView.adapter as ContactAdapter
+        newAdapter.putItem(contactList)
+        newAdapter.notifyDataSetChanged()
+        findViewById<TextView>(R.id.noContactsText)?.isVisible = contactList.isEmpty()
     }
 
     class ContactAdapter(
-        private val list: List<Contact>,
+        private var list: List<Contact>,
         private val listItemActionListener: ListItemActionListener?
     ) :
         RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             return ContactViewHolder(inflater, parent, listItemActionListener)
+        }
+
+        fun putItem(list: List<Contact>) {
+            this.list = list
+            notifyDataSetChanged()
         }
 
         override fun getItemCount(): Int = list.size
@@ -91,15 +101,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         class ContactViewHolder(
-            inflater: LayoutInflater,
-            parent: ViewGroup,
-            private var listItemActionListener: ListItemActionListener? = null
+            inflater: LayoutInflater, parent: ViewGroup, private var listItemActionListener: ListItemActionListener? = null
         ) : RecyclerView.ViewHolder(
             inflater.inflate(R.layout.item_contact, parent, false)
         ) {
             private var avatarView = itemView.findViewById<ImageView>(R.id.avatar)
-            private var contactNameView = itemView.findViewById<TextView>(R.id.contactName)
-            private var contactInfoView = itemView.findViewById<TextView>(R.id.contactInfo)
+            private var contactNameView = itemView.findViewById<TextView>(R.id.contactNameItem)
+            private var contactInfoView = itemView.findViewById<TextView>(R.id.contactInfoItem)
 
             fun bind(contact: Contact) {
                 itemView.setOnClickListener {

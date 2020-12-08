@@ -33,7 +33,7 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/saveContactBtn"
+            android:id="@+id/saveContactButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="110dp"
@@ -72,7 +72,7 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/nameEditText"
+        android:id="@+id/nameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -85,7 +85,7 @@
         />
 
     <EditText
-        android:id="@+id/contactInfo"
+        android:id="@+id/contactInfoText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -94,7 +94,7 @@
         android:hint="@string/phoneNumber"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
         />
 
 

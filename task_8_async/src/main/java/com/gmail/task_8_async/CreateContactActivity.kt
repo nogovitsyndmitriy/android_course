@@ -7,15 +7,14 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.gmail.task_8_async.entity.Contact
 
 class CreateContactActivity : AppCompatActivity() {
-    private val editText = findViewById<TextView>(R.id.contactInfo)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_add)
         val intent = Intent()
         findViewById<ImageButton>(R.id.backToContactsBtn).setOnClickListener {
@@ -27,12 +26,12 @@ class CreateContactActivity : AppCompatActivity() {
             contactInfoType = radio.text.toString()
             setTypeOfContact(contactInfoType)
         })
-        findViewById<ImageButton>(R.id.saveContactBtn).setOnClickListener(View.OnClickListener {
+        findViewById<ImageButton>(R.id.saveContactButton).setOnClickListener(View.OnClickListener {
             intent.putExtra(
                 "CONTACT",
                 createContact(
-                    findViewById<EditText>(R.id.nameEditText).text.toString(),
-                    findViewById<EditText>(R.id.contactInfo).text.toString(),
+                    findViewById<EditText>(R.id.nameText).text.toString(),
+                    findViewById<EditText>(R.id.contactInfoText).text.toString(),
                     contactInfoType
                 )
             )
@@ -41,7 +40,7 @@ class CreateContactActivity : AppCompatActivity() {
         })
     }
 
-    private fun createContact(name: String, contactInfo: String, contactInfoType: String): Contact? {
+    private fun createContact(name: String, contactInfo: String, contactInfoType: String): Contact {
         val newContact = Contact()
         if (contactInfoType == "Email") {
             newContact.let {
@@ -59,6 +58,7 @@ class CreateContactActivity : AppCompatActivity() {
     }
 
     private fun setTypeOfContact(text: String) {
+        val editText = findViewById<EditText>(R.id.contactInfoText)
         if (text == "Email") {
             editText.hint = "Email"
         } else {
