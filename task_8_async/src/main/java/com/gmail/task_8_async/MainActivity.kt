@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
         }
         val newAdapter = this.recyclerView.adapter as ContactAdapter
         newAdapter.putItem(contactList)
-        newAdapter.notifyDataSetChanged()
         findViewById<TextView>(R.id.noContactsText)?.isVisible = contactList.isEmpty()
     }
 
