@@ -11,75 +11,85 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gmail.task_8_async.consts.CONTACT
+import com.gmail.task_8_async.consts.CREATE
+import com.gmail.task_8_async.consts.CREATED
+import com.gmail.task_8_async.consts.DELETED
+import com.gmail.task_8_async.consts.DELETED_ID
+import com.gmail.task_8_async.consts.EDIT
+import com.gmail.task_8_async.consts.EDITED
+import com.gmail.task_8_async.consts.EDITED_CONTACT
+import com.gmail.task_8_async.consts.POSITION
 import com.gmail.task_8_async.database.AppDatabase
 import com.gmail.task_8_async.entity.Contact
-import java.util.concurrent.Executors
+import com.gmail.task_8_async.repository.UniversalContactRepository
+import com.gmail.task_8_async.repository.UniversalContactRepositoryImpl
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity() : AppCompatActivity() {
+
+    private lateinit var universalContactRepository: UniversalContactRepository
     private lateinit var db: AppDatabase
     private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
     private var contactList: MutableList<Contact> = mutableListOf()
-    private val executor = Executors.newFixedThreadPool(10)
-
+    private lateinit var textView: TextView
+    private lateinit var newAdapter: ContactAdapter
 
     interface ListItemActionListener {
-        fun onItemClicked(id: String)
+        fun onItemClicked(id: String, position: Int)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = (applicationContext as App).db
+        handler = Handler(mainLooper)
         setContentView(R.layout.activity_main)
-        contactList = db.contactDao().getAll().toMutableList()
-
-        findViewById<TextView>(R.id.noContactsText).isVisible = contactList.isEmpty()
+        textView = findViewById<TextView>(R.id.noContactsText)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerContactsView)
         recyclerView.apply {
             adapter = ContactAdapter(contactList, object : ListItemActionListener {
-                override fun onItemClicked(id: String) {
+                override fun onItemClicked(id: String, position: Int) {
                     val contactForEdit = db.contactDao().findById(id)
                     val intent = Intent(this@MainActivity, EditContactActivity::class.java)
-                    intent.putExtra("CONTACT", contactForEdit)
+                    intent.putExtra(CONTACT, contactForEdit)
+                    intent.putExtra(POSITION, position)
                     startActivityForResult(intent, 1)
                 }
             })
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
+        newAdapter = this.recyclerView.adapter as ContactAdapter
+        universalContactRepository = UniversalContactRepositoryImpl(db, handler, textView, newAdapter)
+        universalContactRepository.getAll()
         val addButton = findViewById<ImageButton>(R.id.addContactBtn)
         addButton.setOnClickListener {
             val intent = Intent(this, CreateContactActivity::class.java)
-            startActivityForResult(intent, 555)
+            startActivityForResult(intent, CREATE)
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 555 && resultCode == 666 && data != null) {
-            db.contactDao().saveAll(data.getSerializableExtra("CONTACT") as Contact)
-            contactList = db.contactDao().getAll().toMutableList()
-        } else if (requestCode == 1 && resultCode == DELETED && data != null) {
-            val id = data.getStringExtra("DELETED_ID").toString()
-            db.contactDao().deleteById(id)
-            contactList = db.contactDao().getAll().toMutableList()
-        } else if (requestCode == 1 && resultCode == EDITED && data != null) {
-            val editedContact = data.getSerializableExtra("EDITED_CONTACT") as Contact
-            db.contactDao().deleteById(editedContact.id)
-            db.contactDao().saveAll(editedContact)
-            this.contactList = db.contactDao().getAll().toMutableList()
+        if (data != null) {
+            val position = data.getIntExtra(POSITION, -1)
+            if (requestCode == CREATE && resultCode == CREATED) {
+                universalContactRepository.save(data.getSerializableExtra(CONTACT) as Contact)
+            } else if (requestCode == EDIT && resultCode == DELETED) {
+                val id = data.getStringExtra(DELETED_ID).toString()
+                universalContactRepository.delete(id, position)
+            } else if (requestCode == EDIT && resultCode == EDITED) {
+                val editedContact = data.getSerializableExtra(EDITED_CONTACT) as Contact
+                universalContactRepository.update(editedContact, position)
+            }
         }
-        val newAdapter = this.recyclerView.adapter as ContactAdapter
-        newAdapter.putItem(contactList)
-        findViewById<TextView>(R.id.noContactsText)?.isVisible = contactList.isEmpty()
     }
 
     class ContactAdapter(
-        private var list: List<Contact>,
+        private var list: MutableList<Contact>,
         private val listItemActionListener: ListItemActionListener?
     ) :
         RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
@@ -88,15 +98,32 @@ class MainActivity : AppCompatActivity() {
             return ContactViewHolder(inflater, parent, listItemActionListener)
         }
 
-        fun putItem(list: List<Contact>) {
+        fun putAllContactList(list: MutableList<Contact>) {
             this.list = list
             notifyDataSetChanged()
+        }
+
+        fun removeItem(position: Int) {
+            list.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount - position);
+        }
+
+        fun insertItem(position: Int, contact: Contact) {
+            list.add(position, contact)
+            notifyItemInserted(position)
+        }
+
+        fun itemEdited(position: Int, contact: Contact) {
+            list.removeAt(position)
+            list.add(position, contact)
+            notifyItemChanged(position, contact)
         }
 
         override fun getItemCount(): Int = list.size
         override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
             val contact: Contact = list[position]
-            holder.bind(contact)
+            holder.bind(contact, position)
         }
 
         class ContactViewHolder(
@@ -108,19 +135,13 @@ class MainActivity : AppCompatActivity() {
             private var contactNameView = itemView.findViewById<TextView>(R.id.contactNameItem)
             private var contactInfoView = itemView.findViewById<TextView>(R.id.contactInfoItem)
 
-            fun bind(contact: Contact) {
+            fun bind(contact: Contact, position: Int) {
                 itemView.setOnClickListener {
-                    listItemActionListener?.onItemClicked(contact.id)
+                    listItemActionListener?.onItemClicked(contact.id, position)
                 }
-                if (contact.isPhone) {
-                    avatarView?.setImageResource(R.drawable.ic_contact_phone)
-                    contactNameView?.text = contact.name
-                    contactInfoView?.text = contact.phone
-                } else {
-                    avatarView?.setImageResource(R.drawable.ic_contact_email)
-                    contactNameView?.text = contact.name
-                    contactInfoView?.text = contact.email
-                }
+                contact.infoType.iconId.let { avatarView?.setImageResource(it) }
+                contactNameView?.text = contact.name
+                contactInfoView?.text = contact.info
             }
         }
     }
