@@ -16,18 +16,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.createFileBtn
-import kotlinx.android.synthetic.main.activity_main.recyclerFilesView
-import kotlinx.android.synthetic.main.activity_main.settingsBtn
-import kotlinx.android.synthetic.main.create_file_dialog.view.fileNameEditText
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.create_file_dialog.view.*
 import java.io.File
+
+private const val SETTINGS_REQUEST_CODE = 123
 
 class MainActivity : AppCompatActivity() {
 
-    var filesMap = mutableMapOf<String, File>()
-    var createFileDialogId: Int = 1
-    private val SETTINGS_REQUEST_CODE = 123
-
+    private var filesMap = mutableMapOf<String, File>()
+    private var createFileDialogId: Int = 1
 
     interface ListItemActionListener {
         fun onItemClicked(name: String, button: String)
@@ -44,13 +42,10 @@ class MainActivity : AppCompatActivity() {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivityForResult(settingsIntent, SETTINGS_REQUEST_CODE)
         }
-
-        val recyclerView = recyclerFilesView
-        recyclerView.apply {
+        recyclerFilesView.apply {
             adapter = FilesAdapter(filesMap, object : ListItemActionListener {
                 @RequiresApi(Build.VERSION_CODES.N)
                 override fun onItemClicked(name: String, button: String) {
-
                     if (button == "DELETE") {
                         filesMap.remove(name)
                         adapter?.notifyDataSetChanged()
@@ -96,14 +91,11 @@ class MainActivity : AppCompatActivity() {
                 val counter: Int = 0;
                 val fileName = view.fileNameEditText.text.toString()
                 val checkedFileName: String = validateFileName(fileName, counter)
-                val sharedPrefs = getPreferences(Context.MODE_PRIVATE)
-                val isSharedPrefChecked = sharedPrefs.getBoolean("IS_SHARED_STORAGE", false)
-                val file = if (isSharedPrefChecked) {
+                filesMap[checkedFileName] = if (getPreferences(Context.MODE_PRIVATE).getBoolean("IS_SHARED_STORAGE", false)) {
                     File(externalCacheDir, "$checkedFileName.txt")
                 } else {
                     File(filesDir, "$checkedFileName.txt")
                 }
-                filesMap[checkedFileName] = file
                 this.recyclerFilesView.adapter?.notifyDataSetChanged()
             }
             .setNegativeButton(R.string.cancel) { dialogInterface, _ -> dialogInterface.cancel() }
@@ -125,7 +117,10 @@ class MainActivity : AppCompatActivity() {
         return totalFileName
     }
 
-    class FilesAdapter(private val map: Map<String, File>, private val listItemActionListener: ListItemActionListener?) :
+    class FilesAdapter(
+        private val map: Map<String, File>,
+        private val listItemActionListener: ListItemActionListener?
+    ) :
         RecyclerView.Adapter<FilesAdapter.FilesViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesViewHolder {
             val inflater = LayoutInflater.from(parent.context)
@@ -139,7 +134,11 @@ class MainActivity : AppCompatActivity() {
             holder.bind(filePair)
         }
 
-        class FilesViewHolder(inflater: LayoutInflater, parent: ViewGroup, private var listItemClickListener: ListItemActionListener?) : RecyclerView.ViewHolder(
+        class FilesViewHolder(
+            inflater: LayoutInflater,
+            parent: ViewGroup,
+            private var listItemClickListener: ListItemActionListener?
+        ) : RecyclerView.ViewHolder(
             inflater.inflate(
                 R.layout.file_item,
                 parent,

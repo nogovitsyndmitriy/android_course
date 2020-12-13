@@ -14,15 +14,14 @@ import java.io.FileOutputStream
 
 class EditFileActivity : AppCompatActivity() {
 
+    private val fileNameTextView = findViewById<TextView>(R.id.fileNameText)
+    private val editFileButton = findViewById<Button>(R.id.editFileButton)
+    private val backButton = findViewById<ImageButton>(R.id.backButton)
+    private val fileContent = findViewById<EditText>(R.id.fileContent)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_file)
-
-        val fileNameTextView = findViewById<TextView>(R.id.fileNameText)
-        val editFileButton = findViewById<Button>(R.id.editFileButton)
-        val backButton = findViewById<ImageButton>(R.id.backButton)
-        val fileContent = findViewById<EditText>(R.id.fileContent)
-
         backButton.setOnClickListener {
             finish()
         }
@@ -31,11 +30,7 @@ class EditFileActivity : AppCompatActivity() {
         val fileName = intent.getStringExtra("FileName")
         fileNameTextView.text = fileName
         if (file.length() > 0) {
-            val contentFromFile: String = FileInputStream(file)
-                .bufferedReader()
-                .use { out ->
-                    out.readLine().toString()
-                }
+            val contentFromFile: String = getContentFromFile(file)
             fileContent.setText(contentFromFile)
         }
         editFileButton.setOnClickListener {
@@ -60,5 +55,13 @@ class EditFileActivity : AppCompatActivity() {
             setResult(666, resultIntent)
             finish()
         }
+    }
+
+    private fun getContentFromFile(file: File): String {
+        return FileInputStream(file)
+            .bufferedReader()
+            .use { out ->
+                out.readLine().toString()
+            }
     }
 }
