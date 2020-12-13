@@ -11,4 +11,7 @@
     <string name="phoneNumber">Phone number</string>
     <string name="editContact">Edit contact</string>
     <string name="remove">Remove</string>
+    <string name="tpeh">TPEH</string>
+    <string name="completableFuture">Completable Future</string>
+    <string name="rx">RXJava</string>
 </resources>

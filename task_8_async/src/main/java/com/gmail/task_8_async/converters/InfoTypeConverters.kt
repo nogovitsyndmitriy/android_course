@@ -11,7 +11,6 @@ class InfoTypeConverters {
     @TypeConverter
     fun fromInfoType(value: InfoType) = value.type
 
-
     private fun getInfoType(type: String): InfoType {
         var infoType = InfoType.values().find { infoType -> infoType.type == type }
         if (infoType == null) {

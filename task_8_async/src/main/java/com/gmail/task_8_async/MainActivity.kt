@@ -1,5 +1,6 @@
 package com.gmail.task_8_async
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,11 +9,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gmail.task_8_async.consts.ASYNC_TYPE
 import com.gmail.task_8_async.consts.CONTACT
 import com.gmail.task_8_async.consts.CREATE
 import com.gmail.task_8_async.consts.CREATED
@@ -25,7 +30,8 @@ import com.gmail.task_8_async.consts.POSITION
 import com.gmail.task_8_async.database.AppDatabase
 import com.gmail.task_8_async.entity.Contact
 import com.gmail.task_8_async.repository.UniversalContactRepository
-import com.gmail.task_8_async.repository.UniversalContactRepositoryImpl
+import com.gmail.task_8_async.repository.impl.UniversalContactRepositoryImpl
+import java.util.concurrent.Executors
 
 
 class MainActivity() : AppCompatActivity() {
@@ -37,6 +43,8 @@ class MainActivity() : AppCompatActivity() {
     private var contactList: MutableList<Contact> = mutableListOf()
     private lateinit var textView: TextView
     private lateinit var newAdapter: ContactAdapter
+    private lateinit var type: String
+    private val executor = Executors.newFixedThreadPool(5)
 
     interface ListItemActionListener {
         fun onItemClicked(id: String, position: Int)
@@ -44,10 +52,15 @@ class MainActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val tpeh = findViewById<RadioButton>(R.id.tpehButton)
+        val completable = findViewById<RadioButton>(R.id.completableFutureButton)
+        val rxjava = findViewById<RadioButton>(R.id.rxJavaButton)
         db = (applicationContext as App).db
         handler = Handler(mainLooper)
-        setContentView(R.layout.activity_main)
         textView = findViewById<TextView>(R.id.noContactsText)
+        type = getAsyncMode().toString()
+        setUpAsyncMode(tpeh, completable, rxjava, type)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerContactsView)
         recyclerView.apply {
             adapter = ContactAdapter(contactList, object : ListItemActionListener {
@@ -62,8 +75,18 @@ class MainActivity() : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
         newAdapter = this.recyclerView.adapter as ContactAdapter
-        universalContactRepository = UniversalContactRepositoryImpl(db, handler, textView, newAdapter)
+        universalContactRepository = UniversalContactRepositoryImpl(db, handler, textView, newAdapter, type, executor)
         universalContactRepository.getAll()
+        val group = findViewById<RadioGroup>(R.id.radioGroupAsyncMethod)
+        group.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { _, checkedId ->
+            val radio: RadioButton = findViewById(checkedId)
+            radio.setOnClickListener {
+                type = radio.text.toString()
+                setAsyncMode(type)
+                val toast = Toast.makeText(this, type, Toast.LENGTH_LONG)
+                toast.show()
+            }
+        })
         val addButton = findViewById<ImageButton>(R.id.addContactBtn)
         addButton.setOnClickListener {
             val intent = Intent(this, CreateContactActivity::class.java)
@@ -86,6 +109,29 @@ class MainActivity() : AppCompatActivity() {
                 universalContactRepository.update(editedContact, position)
             }
         }
+    }
+
+    private fun setUpAsyncMode(tpeh: RadioButton?, completable: RadioButton?, rxjava: RadioButton?, type: String) {
+        if (tpeh != null && tpeh.text == type) {
+            tpeh.isChecked = true
+        } else if (completable != null && completable.text == type) {
+            completable.isChecked = true
+        } else if (rxjava != null && rxjava.text == type) {
+            rxjava.isChecked = true
+        }
+    }
+
+    private fun setAsyncMode(asyncType: String) {
+        val sharedPrefs = getPreferences(Context.MODE_PRIVATE)
+        val editor = sharedPrefs.edit()
+        editor.putString(ASYNC_TYPE, asyncType)
+        universalContactRepository = UniversalContactRepositoryImpl(db, handler, textView, newAdapter, asyncType, executor)
+        editor.apply()
+    }
+
+    private fun getAsyncMode(): String? {
+        val sharedPrefs = getPreferences(Context.MODE_PRIVATE)
+        return sharedPrefs.getString(ASYNC_TYPE, "")
     }
 
     class ContactAdapter(

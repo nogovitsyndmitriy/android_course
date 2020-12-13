@@ -1,4 +1,4 @@
-package com.gmail.task_8_async.repository
+package com.gmail.task_8_async.repository.impl
 
 import android.os.Handler
 import android.widget.TextView
@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import com.gmail.task_8_async.MainActivity
 import com.gmail.task_8_async.database.AppDatabase
 import com.gmail.task_8_async.entity.Contact
+import com.gmail.task_8_async.repository.ContactRepositoryTPEH
 import java.util.concurrent.Executors
 
 class ContactRepositoryTPEHImpl(
@@ -33,7 +34,7 @@ class ContactRepositoryTPEHImpl(
             db.contactDao().deleteById(contactId)
             handler.post(Runnable {
                 newAdapter.removeItem(position)
-                textView.isVisible = newAdapter.itemCount == 0
+                textView.isVisible = newAdapter.itemCount <= 0
             })
         })
     }
@@ -43,7 +44,7 @@ class ContactRepositoryTPEHImpl(
             db.contactDao().saveAll(contact)
             handler.post(Runnable {
                 newAdapter.insertItem(newAdapter.itemCount, contact)
-                textView.isVisible = newAdapter.itemCount == 0
+                textView.isVisible = newAdapter.itemCount <= 0
             })
         })
     }
