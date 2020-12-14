@@ -1,3 +1,6 @@
 include ':t_2'
+include ':13_10_classwork'
+include ':recyclerview'
+include ':task_3'
 include ':app'
 rootProject.name = "android_course"

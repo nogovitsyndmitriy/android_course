@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/attractions"
+            android:src="@drawable/ic_attractions" />
+
+        <TextView
+            android:id="@+id/text_1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/attractions"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/dining"
+            android:src="@drawable/ic_dining" />
+
+        <TextView
+            android:id="@+id/text_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/dining"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/attractions"
+            android:src="@drawable/ic_education" />
+
+        <TextView
+            android:id="@+id/text_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/education"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/family"
+            android:src="@drawable/ic_family" />
+
+        <TextView
+            android:id="@+id/text_4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/family"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/health"
+            android:src="@drawable/ic_health" />
+
+        <TextView
+            android:id="@+id/text_5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/health"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/office"
+            android:src="@drawable/ic_office" />
+
+        <TextView
+            android:id="@+id/text_6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/office"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/promotions"
+            android:src="@drawable/ic_promotions" />
+
+        <TextView
+            android:id="@+id/text_7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/promotions"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/radio"
+            android:src="@drawable/ic_radio" />
+
+        <TextView
+            android:id="@+id/text_8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/radio"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_9"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/recipes"
+            android:src="@drawable/ic_recipes" />
+
+        <TextView
+            android:id="@+id/text_9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/recipes"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/row_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/sports"
+            android:src="@drawable/ic_sports" />
+
+        <TextView
+            android:id="@+id/text_10"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical"
+            android:text="@string/sports"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
