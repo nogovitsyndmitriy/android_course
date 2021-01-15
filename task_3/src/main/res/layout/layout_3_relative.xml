@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/sing_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/sing_in"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sing_in"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/border"
+        android:inputType="textEmailAddress"
+        android:paddingStart="25dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/email"
+        android:textColor="@color/grey"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/border"
+        android:paddingStart="25dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/password"
+        android:textColor="@color/grey"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:buttonTint="@color/blue"
+        android:checked="true" />
+
+    <TextView
+        android:id="@+id/remember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/checkbox"
+        android:text="@string/remember"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/remember"
+        android:text="@string/forgot_password"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remember"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="170dp"
+        android:background="@drawable/border_black"
+        android:backgroundTint="@color/black"
+        android:paddingStart="135dp"
+        android:paddingEnd="135dp"
+        android:text="@string/singin"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn"
+        android:layout_marginStart="120dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/just_sing_in"
+        android:textSize="22sp" />
+
+</RelativeLayout>
