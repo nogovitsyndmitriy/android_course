@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">t_2</string>
+    <string name="push_me">Push me :-)</string>
+    <string name="refresh_btn">Refresh ;-D</string>
+    <string name="valuelist">ValueList</string>
+    <string name="result_1">"Result 1: "</string>
+    <string name="result_2">"Result 2: "</string>
+    <string name="result_3">"Result 3: "</string>
+    <string name="average">Average of numbers:  </string>
+    <string name="sum">Sum of numbers:  </string>
+    <string name="quotient">Quotient of numbers:  </string>
+</resources>
