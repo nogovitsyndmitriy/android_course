@@ -1,3 +1,4 @@
+include ':task_8_weather_mvp'
 include ':classwork_08_12'
 include ':task_7'
 include ':task_8_async'
