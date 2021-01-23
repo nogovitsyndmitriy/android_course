@@ -7,11 +7,12 @@
         <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-5.4.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/task_4_2_contacts" />
+            <option value="$PROJECT_DIR$/task_7" />
             <option value="$PROJECT_DIR$/task_3" />
             <option value="$PROJECT_DIR$/task_5" />
           </set>
