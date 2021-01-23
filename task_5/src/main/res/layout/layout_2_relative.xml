@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/v_1"
+            style="@style/layout_2_imageView_photo" />
+
+        <TextView
+            android:id="@+id/photo_1"
+            style="@style/layout_2_textView"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            style="@style/layout_2_imageView"
+            android:layout_alignBottom="@id/v_1"
+            android:layout_marginStart="38dp"
+            android:layout_marginBottom="24dp"
+            android:layout_toEndOf="@+id/photo_1" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_1"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_1"
+        android:autofillHints="@string/title"
+        android:text="@string/title"
+        tools:ignore="LabelFor" />
+
+
+    <EditText
+        android:id="@+id/et_2"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_1"
+        android:autofillHints="@string/price"
+        android:inputType="number"
+        android:text="@string/price"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_3"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_1"
+        android:layout_toEndOf="@id/et_2"
+        android:autofillHints="@string/location"
+        android:drawableEnd="@drawable/ic_location"
+        android:text="@string/location"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_4"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_3"
+        android:autofillHints="@string/description"
+        android:text="@string/description"
+        tools:ignore="LabelFor" />
+
+
+    <EditText
+        android:id="@+id/et_5"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_4"
+        android:autofillHints="@string/inventory"
+        android:text="@string/inventory"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_6"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_4"
+        android:layout_alignParentEnd="true"
+        android:autofillHints="@string/weight"
+        android:inputType="number"
+        android:text="@string/weight"
+        tools:ignore="LabelFor" />
+
+</RelativeLayout>
