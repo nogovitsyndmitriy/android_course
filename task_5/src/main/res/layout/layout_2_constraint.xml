@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/v_1"
+        style="@style/layout_2_imageView_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        style="@style/layout_2_textView"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintLeft_toLeftOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="@id/v_1"
+        app:layout_constraintTop_toTopOf="@+id/v_1" />
+
+    <ImageView
+        style="@style/layout_2_imageView"
+        app:layout_constraintBottom_toBottomOf="@id/v_1"
+        app:layout_constraintRight_toRightOf="@id/v_1"
+        app:layout_constraintTop_toTopOf="@id/v_1"
+        app:layout_constraintVertical_bias="1" />
+
+    <EditText
+        android:id="@+id/et_1"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/title"
+        android:text="@string/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_1"
+        tools:ignore="LabelFor" />
+
+
+    <EditText
+        android:id="@+id/et_2"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/price"
+        android:inputType="number"
+        android:text="@string/price"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/et_3"
+        app:layout_constraintTop_toBottomOf="@id/et_1"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_3"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/location"
+        android:drawableEnd="@drawable/ic_location"
+        android:text="@string/location"
+        app:layout_constraintLeft_toRightOf="@id/et_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_1"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_4"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/description"
+        android:text="@string/description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_3"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="LabelFor" />
+
+
+    <EditText
+        android:id="@+id/et_5"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/inventory"
+        android:text="@string/inventory"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_4"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="LabelFor" />
+
+    <EditText
+        android:id="@+id/et_6"
+        style="@style/layout_2_relative_editText"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/weight"
+        android:inputType="number"
+        android:text="@string/weight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_4"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="LabelFor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

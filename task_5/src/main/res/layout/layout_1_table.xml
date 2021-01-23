@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TableRow
+        android:id="@+id/row_1"
+        style="@style/customLinear_1_1"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_1"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/attractions"
+            android:src="@drawable/ic_attractions" />
+
+        <TextView
+            android:id="@+id/text_1"
+            style="@style/layout_1_1_textView"
+            android:text="@string/attractions" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_2"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_2"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/dining"
+            android:src="@drawable/ic_dining" />
+
+        <TextView
+            android:id="@+id/text_2"
+            style="@style/layout_1_1_textView"
+            android:text="@string/dining" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_3"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_3"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/attractions"
+            android:src="@drawable/ic_education" />
+
+        <TextView
+            android:id="@+id/text_3"
+            style="@style/layout_1_1_textView"
+            android:text="@string/education" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_4"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_4"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/family"
+            android:src="@drawable/ic_family" />
+
+        <TextView
+            android:id="@+id/text_4"
+            style="@style/layout_1_1_textView"
+            android:text="@string/family" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_5"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_5"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/health"
+            android:src="@drawable/ic_health" />
+
+        <TextView
+            android:id="@+id/text_5"
+            style="@style/layout_1_1_textView"
+            android:text="@string/health" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_6"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_6"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/office"
+            android:src="@drawable/ic_office" />
+
+        <TextView
+            android:id="@+id/text_6"
+            style="@style/layout_1_1_textView"
+            android:text="@string/office" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_7"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_7"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/promotions"
+            android:src="@drawable/ic_promotions" />
+
+        <TextView
+            android:id="@+id/text_7"
+            style="@style/layout_1_1_textView"
+            android:text="@string/promotions" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_8"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_8"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/radio"
+            android:src="@drawable/ic_radio" />
+
+        <TextView
+            android:id="@+id/text_8"
+            style="@style/layout_1_1_textView"
+            android:text="@string/radio" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_9"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_9"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/recipes"
+            android:src="@drawable/ic_recipes" />
+
+        <TextView
+            android:id="@+id/text_9"
+            style="@style/layout_1_1_textView"
+            android:text="@string/recipes" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/row_10"
+        style="@style/customLinear_1_1"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:id="@+id/img_10"
+            style="@style/layout_1_1_imageView"
+            android:contentDescription="@string/sports"
+            android:src="@drawable/ic_sports" />
+
+        <TextView
+            android:id="@+id/text_10"
+            style="@style/layout_1_1_textView"
+            android:text="@string/sports" />
+    </TableRow>
+
+</TableLayout>

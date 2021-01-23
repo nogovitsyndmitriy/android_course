@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <FrameLayout
+        android:id="@+id/photo_tile"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@color/grey">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/photo"
+                android:textColor="@color/black"
+                android:textSize="72sp" />
+
+            <TextView
+                style="@style/l_5_text_white"
+                android:text="@string/certificated" />
+        </FrameLayout>
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="120dp"
+            android:contentDescription="@string/heart"
+            android:src="@drawable/ic_heart" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="65dp"
+            android:contentDescription="@string/flag"
+            android:src="@drawable/ic_flag" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/connect"
+            android:src="@drawable/ic_connect" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layouts_tile"
+        style="@style/l_5_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo_tile">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp"
+            android:background="@color/grey">
+
+            <TextView
+                style="@style/l_5_text_white"
+                android:text="@string/layouts" />
+        </FrameLayout>
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="85dp"
+            android:contentDescription="@string/heart"
+            android:src="@drawable/ic_heart" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="45dp"
+            android:contentDescription="@string/flag"
+            android:src="@drawable/ic_flag" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/connect"
+            android:src="@drawable/ic_connect" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/views_tile"
+        style="@style/l_5_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/layouts_tile"
+        app:layout_constraintTop_toBottomOf="@id/photo_tile">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="65dp"
+            android:background="@color/grey">
+
+            <TextView
+                style="@style/l_5_text_white"
+                android:text="@string/views" />
+        </FrameLayout>
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="85dp"
+            android:contentDescription="@string/heart"
+            android:src="@drawable/ic_heart" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="45dp"
+            android:contentDescription="@string/flag"
+            android:src="@drawable/ic_flag" />
+
+        <ImageView
+            style="@style/l_5_image"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/connect"
+            android:src="@drawable/ic_connect" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
