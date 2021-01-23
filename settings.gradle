@@ -1,3 +1,9 @@
 include ':task_8_weather_mvp'
+include ':classwork_08_12'
+include ':task_7'
+include ':task_8_async'
+include ':task_4_2_contacts'
+include ':task_5'
+include ':task_3'
 include ':app'
 rootProject.name = "android_course"

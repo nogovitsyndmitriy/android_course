@@ -5,14 +5,19 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="testRunner" value="PLATFORM" />
+        <option name="disableWrapperSourceDistributionNotification" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$PROJECT_DIR$/../../../../Gradle/gradle-5.4.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/task_8_weather_mvp" />
+            <option value="$PROJECT_DIR$/classwork_08_12" />
+            <option value="$PROJECT_DIR$/task_7" />
+            <option value="$PROJECT_DIR$/task_8_async" />
+            <option value="$PROJECT_DIR$/task_3" />
+            <option value="$PROJECT_DIR$/task_5" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
