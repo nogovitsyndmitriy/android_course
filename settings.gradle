@@ -1,10 +1,4 @@
-include ':29'
-include ':task_4_2_contacts'
-include ':classwork_22x10'
-include ':15_10_classwork'
-include ':tsak_4'
-include ':13_10_classwork'
-include ':recyclerview'
+include ':task_5'
 include ':task_3'
 include ':app'
 rootProject.name = "android_course"

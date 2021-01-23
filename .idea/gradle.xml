@@ -11,15 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/13_10_classwork" />
-            <option value="$PROJECT_DIR$/15_10_classwork" />
-            <option value="$PROJECT_DIR$/29" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/classwork_22x10" />
-            <option value="$PROJECT_DIR$/recyclerview" />
             <option value="$PROJECT_DIR$/task_3" />
-            <option value="$PROJECT_DIR$/task_4_2_contacts" />
-            <option value="$PROJECT_DIR$/tsak_4" />
+            <option value="$PROJECT_DIR$/task_5" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

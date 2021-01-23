@@ -1,0 +1,198 @@
+<resources>
+    <!-- Base application theme. -->
+    <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--        <item name="colorAccent">@color/colorAccent</item>-->
+    <!--    </style>-->
+    <style name="custom_theme" parent="Theme.AppCompat.Light.NoActionBar">
+
+
+    </style>
+
+    <style name="layout_1_1_imageView">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:contentDescription">@string/avatar</item>
+    </style>
+
+    <style name="layout_1_1_textView" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="customLinear_1_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="layout_2_relative_editText">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="layout_2_textView">
+        <item name="android:text">@string/photo</item>
+        <item name="android:textSize">72sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="layout_2_imageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:contentDescription">@string/photo</item>
+        <item name="android:src">@drawable/ic_camera</item>
+    </style>
+
+    <style name="layout_2_imageView_photo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:background">@color/grey</item>
+        <item name="android:contentDescription">@string/photo</item>
+    </style>
+
+
+    <style name="l_3_textView_Sing">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:text">@string/sing_in</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="l_3_editText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">36dp</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:paddingStart">25dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:text">@string/email</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="l_3_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">170dp</item>
+        <item name="android:background">@drawable/border_black</item>
+        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:paddingStart">135dp</item>
+        <item name="android:paddingEnd">135dp</item>
+        <item name="android:text">@string/singin</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="l_3_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="l_3_check">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">30dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:buttonTint">@color/blue</item>
+        <item name="android:checked">true</item>
+    </style>
+
+    <style name="l_3_justSignIn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:text">@string/just_sing_in</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="l_4_1stTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:text">@string/android</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">38sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="l_4_avatar">
+        <item name="android:layout_width">115dp</item>
+        <item name="android:layout_height">115dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:background">@color/grey</item>
+        <item name="android:contentDescription">@string/avatar</item>
+    </style>
+
+    <style name="l_4_avatar_small">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:background">@color/grey</item>
+        <item name="android:contentDescription">@string/avatar</item>
+    </style>
+
+    <style name="l_4_text1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="l_4_imageView_blue">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginStart">70dp</item>
+    </style>
+
+    <style name="l_5_text_white">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:gravity">start|bottom</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="l_5_image">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="l_5_frame">
+        <item name="android:layout_width">195dp</item>
+        <item name="android:layout_height">350dp</item>
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:background">@drawable/shadow</item>
+    </style>
+</resources>
