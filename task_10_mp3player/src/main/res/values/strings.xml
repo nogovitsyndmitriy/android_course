@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">task_10_mp3player</string>
+    <string name="Musicplayer">Music player</string>
+    <string name="song">Song 1</string>
+</resources>
