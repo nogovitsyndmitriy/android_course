@@ -1,5 +1,6 @@
 package com.gmail.task_7.dao
 
+import android.database.Cursor
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -9,6 +10,9 @@ import com.gmail.task_7.entity.Contact
 interface ContactDao {
     @Query("SELECT * FROM contact")
     fun getAll(): List<Contact>
+
+    @Query("SELECT * FROM contact")
+    fun getAllCursor(): Cursor
 
     @Query("SELECT * FROM contact WHERE id = :userId")
     fun findById(userId: String): Contact
