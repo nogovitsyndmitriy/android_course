@@ -11,13 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/task_8_weather_mvp" />
-            <option value="$PROJECT_DIR$/classwork_08_12" />
-            <option value="$PROJECT_DIR$/task_7" />
-            <option value="$PROJECT_DIR$/task_8_async" />
-            <option value="$PROJECT_DIR$/task_3" />
-            <option value="$PROJECT_DIR$/task_5" />
+            <option value="$PROJECT_DIR$/task_10_mp3player" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
